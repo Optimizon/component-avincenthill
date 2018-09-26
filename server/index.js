@@ -31,6 +31,8 @@ class Server {
 
     this.handleGets();
     this.handlePosts();
+    this.handlePuts();
+    this.handleDeletes();
     this.handleOptions();
   }
 
@@ -76,6 +78,33 @@ class Server {
       res.status(202).send();
     });
   }
+
+  handlePuts() {
+    // update the content of a review
+    this.app.put(`/reviews/*`, bodyParser.json(), (req, res) => {
+    const productId = req.originalUrl.split('/')[2]; // get productId from from url
+
+      res.status(202).send();
+    });
+    
+    // decrement the helpfulness of a review
+    this.app.put(`/helpful/*`, bodyParser.json(), (req, res) => {
+    const productId = req.originalUrl.split('/')[2]; // get productId from from url
+     
+      res.status(202).send();
+    });
+  }
+
+  handleDeletes() {
+    // delete a review
+    this.app.delete(`/reviews/*`, bodyParser.json(), (req, res) => {
+    const productId = req.originalUrl.split('/')[2]; // get productId from from url
+
+      res.status(202).send();
+    });
+
+  }
+
 }
 
 const server = new Server();

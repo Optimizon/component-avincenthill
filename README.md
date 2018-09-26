@@ -1,39 +1,41 @@
 # Project Name
 
-> Project description
+> Nick optimizing Alex's microservice
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/Optimizon/Nick-Proxy
+  - https://github.com/Optimizon/component-avincenthill
 
 ## Table of Contents
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
+1. [CRUD](#Usage)
 1. [Development](#development)
 
-## Usage
+## Create
 
-> Some usage instructions
+> /reviews/\*/helpful
+> /reviews/new
 
-## Requirements
+## Read
 
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+> /reviews/\*
+> /helpful/\*
 
-- Node 6.13.0
-- etc
+## Update
 
-## Development
+> /reviews/\*
+> /helpful/\*
+
+## Delete
+
+> /reviews/\*
 
 ### Installing Dependencies
 
 From within the root directory:
 
 ```sh
-npm install -g webpack
-npm install
+npm install 
 ```
 
