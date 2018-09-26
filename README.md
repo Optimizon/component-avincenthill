@@ -13,26 +13,19 @@
 1. [Development](#development)
 
 ## Create
--Increment helpfulness of a review
-> /reviews/\*/helpful  
--Add a new review
-> /reviews/new
+-Increment helpfulness of a review "/reviews/\*/helpful"      
+-Add a new review "/reviews/new"
 
 ## Read
--Get reviews for a product ID
-> /reviews/\*  
--Get helpfulness for a review
-> /helpful/\*
+-Get reviews for a product ID "/reviews/\*"  
+-Get helpfulness for a review "/helpful/\*"
 
 ## Update
--Edit a review
-> /reviews/\*  
--Decrement helpfulness of a review  
-> /helpful/\*
+-Edit a review "/reviews/\*"  
+-Decrement helpfulness of a review "/helpful/\*"
 
 ## Delete
--Delete a review
-> /reviews/\*  
+-Delete a review "/reviews/\*"  
 
 ### Installing Dependencies
 
