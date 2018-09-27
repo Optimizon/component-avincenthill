@@ -48,9 +48,12 @@
     "webpack": "^4.17.2"
   },
   "devDependencies": {
+    "csv-writer": "^1.2.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "fast-csv": "^2.4.1",
+    "fs": "0.0.1-security",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
     "react-test-renderer": "^16.5.0",
