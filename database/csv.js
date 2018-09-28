@@ -9,6 +9,7 @@ var ws = fs.createWriteStream('data.csv');
 
 var productIdCounter = 1;
 var reviewsCounter = 0;
+var id = 1;
 
     // const recursivelyCreateFakeDocs = () => {
     //   if (productIdCounter === 2000) {
@@ -17,6 +18,20 @@ var reviewsCounter = 0;
     //   }
 
       // CREATE TABLE reviews (
+      // productId int,
+      // reviewId int,
+      // username text,
+      // stars int,
+      // title text,
+      // text text,
+      // timestamp text,
+      // numHelpful int,
+      // verifiedPurchase boolean,
+      // imageUrl text
+      // );
+
+      // CREATE TABLE reviews2 (
+      // id serial PRIMARY KEY,
       // productId int,
       // reviewId int,
       // username text,
@@ -141,7 +156,7 @@ for(var i = 0; i < 40; i++) {
 	words.push(faker.random.words());
 	date.push(faker.date.past());
 }
-  var filename = 'data1.csv'
+  var filename = 'primarydata.csv'
   fs.appendFile(filename, 'productId,reviewId,username,stars,title,text,timestamp,numHelpful,verifiedPurchase,imageUrl ' + '\n', (err) => {
   	if(err) {
   		console.log(err)
