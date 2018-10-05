@@ -53,7 +53,7 @@ class App extends React.Component {
       async: true,
       crossDomain: true,
       url: `/helpful/${reviewId}`,
-      method: 'GET',
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
         'cache-control': 'no-cache',

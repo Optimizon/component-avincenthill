@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const url = require('url');
-const db = require('../database/index.js');
+const db = require('../database/postgresindex.js');
 
 class Server {
   constructor() {
@@ -46,65 +46,66 @@ class Server {
   handleGets() {
     // return reviews with posted productId
     this.app.get(`/reviews/*`, bodyParser.json(), (req, res) => {
-      const productId = req.originalUrl.split('/')[2]; // get productId from from url
+      const productId = req.originalUrl.split('/')[2]; // get productId from url
       db.getReviews(productId, (err, data) => {
         if (err) return console.error(err);
         res.status(202).send(data);
       });
-    });
+    });    
+  }
 
-    // increment helpfullness
-    this.app.get(`/helpful/*`, bodyParser.json(), (req, res) => {
-      const reviewId = req.originalUrl.split('/')[2]; // get reviewId from from url
-      db.incrementHelpfulness(reviewId, (err, data) => {
+  handlePosts() {
+    // create a new review
+    this.app.post(`/reviews/new`, bodyParser.json(), (req, res) => {
+      const productId = req.originalUrl.split('/')[2]; // get productId from url
+      db.createReview(productId, (err, data) => {
         if (err) return console.error(err);
         res.status(202).send();
       });
     });
   }
 
-  handlePosts() {
-    // increment the helpfulness of a review
-    this.app.post(`/reviews/*/helpful`, bodyParser.json(), (req, res) => {
-      // TBD do stuff
-      // console.log("POST to helpful");
-      res.status(202).send();
-    });
-
-    // create a new review
-    this.app.post(`/reviews/new`, bodyParser.json(), (req, res) => {
-      // TBD do stuff
-      // console.log("POST to new review");
-      res.status(202).send();
-    });
-  }
-
   handlePuts() {
+    // increment the helpfulness of a review
+    this.app.put(`/helpful/*`, bodyParser.json(), (req, res) => {
+      const reviewId = req.originalUrl.split('/')[2]; // get reviewId from url
+      console.log(reviewId);
+      db.incrementHelpfulness(reviewId, (err, data) => {
+        if (err) return console.error(err);
+        res.status(202).send();
+      });
+    });
+    
     // update the content of a review
     this.app.put(`/reviews/*`, bodyParser.json(), (req, res) => {
-    const productId = req.originalUrl.split('/')[2]; // get productId from from url
-
-      res.status(202).send();
+    const reviewId = req.originalUrl.split('/')[2]; // get reviewId from url
+    const data = req.body.results;
+      db.updateReview(reviewId, data, (err, result) => {
+        if (err) return console.error(err);
+        res.status(202).send();
+      });
     });
     
     // decrement the helpfulness of a review
     this.app.put(`/helpful/*`, bodyParser.json(), (req, res) => {
-    const productId = req.originalUrl.split('/')[2]; // get productId from from url
-     
-      res.status(202).send();
-    });
-  }
+    const reviewId = req.originalUrl.split('/')[2]; // get reviewId from from url
+      db.decrementHelpfulness(reviewId, (err, data) => {
+        if (err) return console.error(err);
+        res.status(202).send();
+      });
+  });
+}
 
   handleDeletes() {
     // delete a review
     this.app.delete(`/reviews/*`, bodyParser.json(), (req, res) => {
-    const productId = req.originalUrl.split('/')[2]; // get productId from from url
-
-      res.status(202).send();
+    const reviewId = req.originalUrl.split('/')[2]; // get reviewId from from url
+      db.deleteReview(reviewId, (err, data) => {
+        if (err) return console.error(err);    
+        res.status(202).send();
+      });
     });
-
   }
-
 }
 
 const server = new Server();

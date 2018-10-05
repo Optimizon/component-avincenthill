@@ -41,7 +41,7 @@ class Header extends React.Component {
     const ratingBuckets = new Array(5).fill('');
     const histogram = ratingBuckets.map((ratingBucket, index) => {
       const currentStar = 5 - index;
-      const percentageOfRatings = (countedRatings[currentStar] / reviews.length) * 100 || 0;
+      const percentageOfRatings = ((countedRatings[currentStar] / reviews.length) * 100).toFixed(2) !== 'NaN' ? ((countedRatings[currentStar] / reviews.length) * 100).toFixed(2) : 0;
       const style = {
         // TBD fix hardcoded arbitrary scalar 44
         width: `${(percentageOfRatings / 100) * 44}vmin`,

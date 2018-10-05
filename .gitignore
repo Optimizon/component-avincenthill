@@ -33,3 +33,4 @@ public/bundle.js
 !.elasticbeanstalk/*.global.yml
 
 .csv
+.png

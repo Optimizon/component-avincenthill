@@ -2,101 +2,22 @@ var faker = require('faker');
 var helpers = require('../server/helpers/helpers.js');
 var fs = require('fs');
 
-var csv = require('fast-csv');
+// 			 CREATE TABLE products (
+//       productId int,
+//       reviewId int
+//       );
 
-var ws = fs.createWriteStream('data.csv');
-
-
-var productIdCounter = 1;
-var reviewsCounter = 0;
-var id = 1;
-
-    // const recursivelyCreateFakeDocs = () => {
-    //   if (productIdCounter === 2000) {
-    //   	csv.write(results, {headers: false}).pipe(ws);
-    //     return;
-    //   }
-
-      // CREATE TABLE reviews (
-      // productId int,
-      // reviewId int,
-      // username text,
-      // stars int,
-      // title text,
-      // text text,
-      // timestamp text,
-      // numHelpful int,
-      // verifiedPurchase boolean,
-      // imageUrl text
-      // );
-
-      // CREATE TABLE reviews2 (
-      // id serial PRIMARY KEY,
-      // productId int,
-      // reviewId int,
-      // username text,
-      // stars int,
-      // title text,
-      // text text,
-      // timestamp text,
-      // numHelpful int,
-      // verifiedPurchase boolean,
-      // imageUrl text
-      // );
-
-// csv.write(results, {headers: ["productId", "reviewId", "username", "stars", "title", "text", "timestamp", "numHelpful", "verifiedPurchase", "imageUrl"]}).pipe(ws);  
-
-
-  // for(var i = 0; i < 100; i++) {
-  // 	var results = [];
-  // 	for(var j = 0; j < 100; j++) {
-	 //    const reviewsArray = [ productIdCounter, reviewsCounter, faker.internet.userName(), helpers.getRandomInt(6), faker.random.words(), faker.lorem.paragraphs(), faker.date.past(), helpers.getRandomInt(1000), Math.random() < 0.5, faker.image.imageUrl()];
-	 //    results.push(reviewsArray.join(','));
-	 //    reviewsCounter += 1;
-	 //    if (reviewsCounter % 10 === 0) {
-	 //      productIdCounter += 1;
-	 //    }	
-  // 	}
-  // 	if(productIdCounter % 1000 === 0) {
-  // 		console.log(productIdCounter);
-  // 	}
-  //   fs.appendFileSync('./data.csv', results.join('\n'));
-  // }
-
-
-// var counter = 20;
-// var getData = (i, reviewId) => {
-// 	ws.removeAllListeners('drain');
-// 	for(; i < counter * 5; i++) {
-// 	  	console.log(productIdCounter);
-// 	    const reviewsArray = [ productIdCounter, reviewsCounter, faker.internet.userName(), helpers.getRandomInt(6), faker.random.words(), faker.lorem.paragraphs(), faker.date.past(), helpers.getRandomInt(1000), Math.random() < 0.5, faker.image.imageUrl()];
-// 	    results.push(reviewsArray);
-// 	    reviewsCounter += 1;
-// 	    if (reviewsCounter % 10 === 0) {
-// 	      productIdCounter += 1;
-// 	    }
-// 	  }
-
-// 	  const didDrain = ws.write(JSON.stringify(results) + '\n');
-
-//     if(!didDrain) {
-//     ws.removeAllListeners('drain');
-// 	  ws.on('drain', () => {
-// 		  csv.write(results, {headers: false}).pipe(ws); 
-// 		  return;     	
-// 	  });
-
-//     }
-
-//     csv.write(results, {headers: false}).pipe(ws);      	
-//     getData(i + 1, reviewsCounter);
-//     return;
-// 	}
-
-// getData();
-
-
-// csv.write(results, {headers: false}).pipe(ws);      	
+// 			 CREATE TABLE reviews3 (
+//       reviewId serial PRIMARY KEY,
+//       username text,
+//       stars int,
+//       title text,
+//       text text,
+//       timestamp text,
+//       numHelpful int,
+//       verifiedPurchase boolean,
+//       imageUrl text
+//       );
 
 var paragraphs = ['Voluptate debitis consequatur soluta. Molestiae dolorem fugit quia recusandae ut vel ipsum doloremque. Facilis voluptatem dolor quis asperiores minus fuga aliquid. Qui suscipit rerum sequi voluptas enim dolorum. Animi impedit reiciendis deserunt et assumenda est quam.', 
 
@@ -156,26 +77,56 @@ for(var i = 0; i < 40; i++) {
 	words.push(faker.random.words());
 	date.push(faker.date.past());
 }
-  var filename = 'primarydata.csv'
-  fs.appendFile(filename, 'productId,reviewId,username,stars,title,text,timestamp,numHelpful,verifiedPurchase,imageUrl ' + '\n', (err) => {
-  	if(err) {
-  		console.log(err)
-  	} else {
-  		generateData(0);
-  	}
-  });
+//   var filename = 'postgres.csv'
+//   fs.appendFile(filename, 'productId,reviewId,username,stars,title,text,timestamp,numHelpful,verifiedPurchase,imageUrl ' + '\n', (err) => {
+//   	if(err) {
+//   		console.log(err)
+//   	} else {
+//   		generateData(0);
+//   	}
+//   });
 
-var recursionSize = 600;
-var chunkSize = 100000;
+// var recursionSize = 10;
+// var chunkSize = 10000;
+// var generateData = function (size) {
+//   if(size === recursionSize) {
+//     return;    
+//   }
+// 	  var reviewsString = '';
+// 	  for(var i = 0; i < chunkSize; i++) {
+// 		  reviewsString += `${productIdCounter},${reviewsCounter},${user[helpers.getRandomInt(40)]},${helpers.getRandomInt(6)},${words[helpers.getRandomInt(40)]},"${paragraphs[helpers.getRandomInt(24)]}",${date[helpers.getRandomInt(40)]},${helpers.getRandomInt(1000)},${Math.random() < 0.5},${images[helpers.getRandomInt(40)]}` + '\n';
+// 	    reviewsCounter += 1;
+// 	    if (reviewsCounter % 6 === 0) {
+// 	      productIdCounter += 1;
+// 	    }	
+// 	  }
+	  
+// 	  fs.appendFile(filename, reviewsString, (err) => {
+// 		  if (err) { 
+// 		  	console.log(err); 
+// 		  } else {
+// 		    generateData(size + 1);
+// 		    console.log(`successfully appended the first ${(size+1)*chunkSize}`);
+// 		  }  
+// 	  });
+// }
+
+var filename = 'cassandra1.csv'
+  
+var recursionSize = 1000;
+var chunkSize = 10000;
+
+var productIdCounter = 1;
+var reviewsCounter = 0;
 var generateData = function (size) {
   if(size === recursionSize) {
     return;    
   }
 	  var reviewsString = '';
 	  for(var i = 0; i < chunkSize; i++) {
-		  reviewsString += `${productIdCounter}, ${reviewsCounter}, ${user[helpers.getRandomInt(40)]}, ${helpers.getRandomInt(6)}, ${words[helpers.getRandomInt(40)]}, "${paragraphs[helpers.getRandomInt(24)]}", ${date[helpers.getRandomInt(40)]}, ${helpers.getRandomInt(1000)}, ${Math.random() < 0.5}, ${images[helpers.getRandomInt(40)]}` + '\n';
+		  reviewsString += `${productIdCounter},${reviewsCounter},${user[helpers.getRandomInt(40)]},${helpers.getRandomInt(6)},${words[helpers.getRandomInt(40)]},"${paragraphs[helpers.getRandomInt(24)]}",${date[helpers.getRandomInt(40)]},${helpers.getRandomInt(1000)},${Math.random() < 0.5},${images[helpers.getRandomInt(40)]}` + '\n';
 	    reviewsCounter += 1;
-	    if (reviewsCounter % 6 === 0) {
+	    if (reviewsCounter % 5 === 0) {
 	      productIdCounter += 1;
 	    }	
 	  }
@@ -190,6 +141,33 @@ var generateData = function (size) {
 	  });
 }
 
+// generateData(0);
+
+
+// productIdCounter = 2000001;
+// reviewsCounter = 10000000;
+// filename = 'cassandra2.csv'
+
+// generateData(0);
+
+// productIdCounter = 4000001;
+// reviewsCounter = 20000000;
+// filename = 'cassandra3.csv'
+
+
+// generateData(0);
+
+// productIdCounter = 6000001;
+// reviewsCounter = 30000000;
+// filename = 'cassandra4.csv'
+
+// generateData(0);
+
+// productIdCounter = 8000001;
+// reviewsCounter = 40000000;
+// filename = 'cassandra5.csv'
+
+// generateData(0);
+
+
 // productId,reviewId,username,stars,title,text,timestamp,numHelpful,verifiedPurchase,imageUrl
-
-
