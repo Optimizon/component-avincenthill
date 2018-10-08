@@ -34,3 +34,5 @@ public/bundle.js
 
 .csv
 .png
+
+newrelic.js
