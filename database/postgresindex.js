@@ -4,25 +4,30 @@ const helpers = require('../server/helpers/helpers.js');
 
 class Database {
   constructor() {
-    this.usingEnv = false;
-    this.pool = new pg.Pool({
-      user: 'Nick Chang',
-      host: 'localhost',
-      database: 'reviews',
-      password: 'nick',
-      port: 5432
-    });
-    this.user = 'Nick Chang';
-    this.pw = 'nick';
+    this.usingEnv = true;
     if (this.usingEnv) {
-      this.connectionString = `mongodb://${this.user}:${this.pw}${this.dburi}`;
-    } 
+      this.connectionObject = {
+        user: process.env.USER,
+        host: 'ec2-54-183-184-198.us-west-1.compute.amazonaws.com',
+        database: process.env.DB,
+        port: 5432
+      }
+    } else {
+      this.connectionObject = {
+        user: 'Nick Chang',
+        host: 'localhost',
+        database: 'reviews',
+        password: 'nick',
+        port: 5432
+      }
+    }
+    this.pool = new pg.Pool(this.connectionObject);
   }
 
 
   getReviews(productId, cb) {
     const search = productId;
-    this.pool.query(`SELECT * FROM master4 where productid = ${search}`, (err, reviews) => {
+    this.pool.query(`SELECT * FROM master where productid = ${search}`, (err, reviews) => {
       if (err) return console.error(err);
       return cb(null, reviews.rows);
     });
@@ -30,7 +35,7 @@ class Database {
 
   createReview(productId, cb) {
     const search = 10000000;
-    this.pool.query(`SELECT reviewid FROM master4 where productid = ${search}`, (err, reviews) => {
+    this.pool.query(`SELECT reviewid FROM master where productid = ${search}`, (err, reviews) => {
       const lastReviewId = reviews.rows[reviews.rows.length-1].reviewid 
       this.pool.query(`INSERT INTO master4 (productid,reviewid,username,stars,title,text,timestamp,numhelpful,verifiedpurchase,imageurl) VALUES (${search},${lastReviewId+1},'nick', 5, 'nick${lastReviewId+1}', 'Inserted ${lastReviewId+1}', '2018-10-05', 5, false, 'http://lorempixel.com/640/480')`, (err, receipt) => {
         if (err) return console.error(err);
@@ -42,7 +47,7 @@ class Database {
 
   incrementHelpfulness(reviewId, cb) {
     const search = reviewId;
-    this.pool.query(`SELECT numhelpful FROM master4 where reviewid = ${search}`, (err, oldVal) => {
+    this.pool.query(`SELECT numhelpful FROM master where reviewid = ${search}`, (err, oldVal) => {
       this.pool.query(`UPDATE master4 SET numhelpful = ${oldVal.rows[0].numhelpful+1} where reviewid = ${search}`, (err, review) => {
         return cb(err, review);
       });
@@ -51,7 +56,7 @@ class Database {
 
    decrementHelpfulness(reviewId, cb) {
     const search = reviewId;
-    this.pool.query(`SELECT numhelpful FROM master4 where reviewid = ${search}`, (err, oldVal) => {
+    this.pool.query(`SELECT numhelpful FROM master where reviewid = ${search}`, (err, oldVal) => {
       this.pool.query(`UPDATE master4 SET numhelpful = ${oldVal.rows[0].numhelpful-1} where reviewid = ${search}`, (err, review) => {
         return cb(err, review);
       });
@@ -61,14 +66,14 @@ class Database {
    updateReview(reviewId, data, cb) {
     const search = reviewId;
     const {username, stars, title, text, timestamp, numhelpful, verifiedpurchase, imageurl} = data;
-    this.pool.query(`UPDATE master4 SET username = ${username}, stars = ${stars}, title = ${title}, text = ${text}, timestamp = ${timestamp}, numhelpful = ${numhelpful}, verifiedpurchase = ${verifiedpurchase}, imageurl = ${imageurl} where reviewid = ${search}`, (err, review) => {
+    this.pool.query(`UPDATE master SET username = ${username}, stars = ${stars}, title = ${title}, text = ${text}, timestamp = ${timestamp}, numhelpful = ${numhelpful}, verifiedpurchase = ${verifiedpurchase}, imageurl = ${imageurl} where reviewid = ${search}`, (err, review) => {
       return cb(err, review);
     });
   }
 
    deleteReview(reviewId, cb) {
     const search = reviewId;
-    this.pool.query(`DELETE FROM master4 WHERE reviewid = ${search}`, (err, review) => {
+    this.pool.query(`DELETE FROM master WHERE reviewid = ${search}`, (err, review) => {
       return cb(err, review);
     });
   }
