@@ -1,7 +1,8 @@
 require('dotenv').config();
 const pg = require('pg');
 const helpers = require('../server/helpers/helpers.js');
-
+console.log(process.env.USER,'user');
+console.log(process.env.DB,'data');
 class Database {
   constructor() {
     this.usingEnv = true;

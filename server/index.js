@@ -1,7 +1,7 @@
 require('dotenv').config();
 require('newrelic');
 const express = require('express');
-const redis = require('redis');
+// const redis = require('redis');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -13,7 +13,7 @@ class Server {
   constructor() {
     this.port = process.env.SERVERPORT || 8080;
     this.proxyPort = process.env.PROXYPORT || 3000;
-    this.client = redis.createClient({host: 'ec2-18-144-29-61.us-west-1.compute.amazonaws.com', port: 6379});
+    // this.client = redis.createClient({host: 'ec2-18-144-29-61.us-west-1.compute.amazonaws.com', port: 6379});
     this.serverAddress = `http://localhost:${this.port}`;
     this.proxyAddress = `http://localhost:${this.proxyPort}`;
     this.app = express();
@@ -42,15 +42,15 @@ class Server {
   }
 
   cache(req, res, next) {
-    const productId = req.originalUrl.split('/')[2];
-    this.client.get(productId, function(err, data) {
-      if (err) throw err;
-      if (data !== null) {
-        res.send(JSON.parse(data));
-      } else {
-        next();
-      }
-    });
+    // const productId = req.originalUrl.split('/')[2];
+    // this.client.get(productId, function(err, data) {
+    //   if (err) throw err;
+    //   if (data !== null) {
+    //     res.send(JSON.parse(data));
+    //   } else {
+    //     next();
+    //   }
+    // });
   }
 
   handleOptions() {
@@ -62,7 +62,7 @@ class Server {
 
   handleGets() {
     // return reviews with posted productId
-    this.app.get(`/reviews/*`, bodyParser.json(), this.cache, (req, res) => {
+    this.app.get(`/reviews/*`, bodyParser.json(), /*this.cache,*/ (req, res) => {
       const productId = req.originalUrl.split('/')[2]; // get productId from url
       
       db.getReviews(productId, (err, data) => {
