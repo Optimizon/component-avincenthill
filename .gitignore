@@ -31,3 +31,10 @@ public/bundle.js
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+.csv
+.png
+
+newrelic.js
+
+master.sql

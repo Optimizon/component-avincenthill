@@ -5,14 +5,14 @@ const helpers = require('../server/helpers/helpers.js');
 
 class Database {
   constructor() {
-    this.usingMLab = true;
+    this.usingMLab = false;
     this.dburi = process.env.DBURI;
     this.user = process.env.DBUSER;
     this.pw = process.env.DBPW;
     if (this.usingMLab) {
       this.dburi = `mongodb://${this.user}:${this.pw}${this.dburi}`;
     } else {
-      this.dburi = `mongodb://localhost:${process.env.DBPORT}/reviews`;
+      this.dburi = `mongodb://localhost:27017/reviews`;
     }
 
     this.Schema = mongoose.Schema;
@@ -39,7 +39,7 @@ class Database {
     let reviewsCounter = 0;
 
     const recursivelyCreateFakeDocs = () => {
-      if (reviewsCounter === 1000) {
+      if (productIdCounter === 101) {
         return;
       }
 
@@ -48,7 +48,7 @@ class Database {
         reviewId: reviewsCounter,
         username: faker.internet.userName(),
         stars: helpers.getRandomInt(6),
-        title: faker.lorem.sentence(),
+        title: faker.random.words(),
         text: faker.lorem.paragraphs(),
         timestamp: faker.date.past(),
         numHelpful: helpers.getRandomInt(1000),
@@ -62,7 +62,7 @@ class Database {
         if (err) return console.error(err);
         console.log("creating review " + reviewsCounter);
         reviewsCounter += 1;
-        if (reviewsCounter % 10 === 0) {
+        if (reviewsCounter % Math.floor(Math.random() * 11) === 0) {
           productIdCounter += 1;
         }
         return recursivelyCreateFakeDocs();

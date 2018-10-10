@@ -1,0 +1,55 @@
+config:
+  variables:
+    productid: 
+      - "3"
+      - "9999999"
+      - "9923403"
+      - "2349932"
+      - "9999340"
+  # payload: 
+  #   path: './artillery.csv'
+  #   fields: 
+  #     - "productId"
+  target: 'http://localhost:1337'
+  phases:
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 50
+      name: "warm up the app"
+    - duration: 60
+      arrivalRate: 200
+      name: "sustained max load"
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+  # environments:
+  #   production:
+  #     target: "http://amazon:3003"
+  #     phases:
+  #       - duration: 600
+  #         arrivalRate: 10
+  #   staging:
+  #     target: "http://127.0.0.1:3003"
+  #     phases:
+  #       - duration: 1200
+  #         arrivalRate: 20
+scenarios:
+  - flow:
+    - get:
+        url: "/reviews/{{productid}}"
+    - get:
+        url: "/reviews/{{productid}}"
+    - get:
+        url: "/reviews/{{productid}}"
+    - get:
+        url: "/reviews/{{productid}}"
+    - get:
+        url: "/reviews/{{productid}}"
+    # - loop:
+    #   - get:
+    #       url: "/reviews/{{productid}}"
+    #   count: 50
+    # - loop:
+    #   - post:
+    #       url: "/reviews/new"
+    #   count: 20
