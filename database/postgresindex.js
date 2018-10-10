@@ -9,7 +9,7 @@ class Database {
     if (this.usingEnv) {
       this.connectionObject = {
         user: process.env.USER,
-        host: 'ec2-54-183-184-198.us-west-1.compute.amazonaws.com',
+        host: '172.31.25.58',
         database: process.env.DB,
         port: 5432
       }
