@@ -11,7 +11,7 @@ const db = require('../database/postgresindex.js');
 
 class Server {
   constructor() {
-    this.port = process.env.SERVERPORT || 1337;
+    this.port = process.env.SERVERPORT || 80;
     this.proxyPort = process.env.PROXYPORT || 3000;
     this.client = redis.createClient({host: 'ec2-18-144-29-61.us-west-1.compute.amazonaws.com', port: 6379});
     this.serverAddress = `http://localhost:${this.port}`;
