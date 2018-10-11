@@ -87,7 +87,7 @@ class Server {
       });
     });
 
-    this.app.get('/loaderio-69c50e65abd43935c1fc9bf953140cec', (req, res) => {
+    this.app.get('/loaderio-40a1dfe6c03e1e5a6ef0de7062c9c4aa', (req, res) => {
       res.send(process.env.LOADER);
     });    
   }
