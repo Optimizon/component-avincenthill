@@ -1,8 +1,7 @@
 require('dotenv').config();
 const pg = require('pg');
 const helpers = require('../server/helpers/helpers.js');
-console.log(process.env.USER,'user');
-console.log(process.env.DB,'data');
+
 class Database {
   constructor() {
     this.usingEnv = true;
@@ -38,7 +37,7 @@ class Database {
     const search = 10000000;
     this.pool.query(`SELECT reviewid FROM master where productid = ${search}`, (err, reviews) => {
       const lastReviewId = reviews.rows[reviews.rows.length-1].reviewid 
-      this.pool.query(`INSERT INTO master4 (productid,reviewid,username,stars,title,text,timestamp,numhelpful,verifiedpurchase,imageurl) VALUES (${search},${lastReviewId+1},'nick', 5, 'nick${lastReviewId+1}', 'Inserted ${lastReviewId+1}', '2018-10-05', 5, false, 'http://lorempixel.com/640/480')`, (err, receipt) => {
+      this.pool.query(`INSERT INTO master (productid,reviewid,username,stars,title,text,timestamp,numhelpful,verifiedpurchase,imageurl) VALUES (${search},${lastReviewId+1},'nick', 5, 'nick${lastReviewId+1}', 'Inserted ${lastReviewId+1}', '2018-10-05', 5, false, 'http://lorempixel.com/640/480')`, (err, receipt) => {
         if (err) return console.error(err);
         console.log(receipt);
         return cb(null, receipt);
@@ -49,7 +48,7 @@ class Database {
   incrementHelpfulness(reviewId, cb) {
     const search = reviewId;
     this.pool.query(`SELECT numhelpful FROM master where reviewid = ${search}`, (err, oldVal) => {
-      this.pool.query(`UPDATE master4 SET numhelpful = ${oldVal.rows[0].numhelpful+1} where reviewid = ${search}`, (err, review) => {
+      this.pool.query(`UPDATE master SET numhelpful = ${oldVal.rows[0].numhelpful+1} where reviewid = ${search}`, (err, review) => {
         return cb(err, review);
       });
     });
@@ -58,7 +57,7 @@ class Database {
    decrementHelpfulness(reviewId, cb) {
     const search = reviewId;
     this.pool.query(`SELECT numhelpful FROM master where reviewid = ${search}`, (err, oldVal) => {
-      this.pool.query(`UPDATE master4 SET numhelpful = ${oldVal.rows[0].numhelpful-1} where reviewid = ${search}`, (err, review) => {
+      this.pool.query(`UPDATE master SET numhelpful = ${oldVal.rows[0].numhelpful-1} where reviewid = ${search}`, (err, review) => {
         return cb(err, review);
       });
     });
