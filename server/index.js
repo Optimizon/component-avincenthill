@@ -104,8 +104,8 @@ class Server {
     });
 
     this.app.post(`/api/reviews/new`, bodyParser.json(), (req, res) => {
-      const productId = req.originalUrl.split('/')[3]; // get productId from url
-      // const productId = 10000001;
+      // const productId = req.originalUrl.split('/')[3]; // get productId from url
+      const productId = 10000001;
       db.createReview(productId, (err, data) => {
         if (err) return console.error(err);
         res.status(202).send();
