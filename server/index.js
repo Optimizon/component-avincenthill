@@ -85,6 +85,10 @@ class Server {
         // this.client.setex(productId, 60, JSON.stringify(data));
         res.status(202).send(data);
       });
+    });
+
+    this.app.get('/loaderio-69c50e65abd43935c1fc9bf953140cec', (req, res) => {
+      res.send(process.env.LOADER);
     });    
   }
 
