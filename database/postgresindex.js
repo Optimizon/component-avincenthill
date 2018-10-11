@@ -7,7 +7,7 @@ class Database {
     this.usingEnv = true;
     if (this.usingEnv) {
       this.connectionObject = {
-        user: process.env.USER,
+        user: 'Nick Chang',
         host: '172.31.25.58',
         database: process.env.DB,
         port: 5432

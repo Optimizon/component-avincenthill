@@ -72,7 +72,7 @@ class Server {
       
       db.getReviews(productId, (err, data) => {
         if (err) return console.error(err);
-        this.client.setex(productId, 60, JSON.stringify(data));
+        // this.client.setex(productId, 60, JSON.stringify(data));
         res.status(202).send(data);
       });
     });  
@@ -82,7 +82,7 @@ class Server {
       
       db.getReviews(productId, (err, data) => {
         if (err) return console.error(err);
-        this.client.setex(productId, 60, JSON.stringify(data));
+        // this.client.setex(productId, 60, JSON.stringify(data));
         res.status(202).send(data);
       });
     });    
