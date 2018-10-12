@@ -42,7 +42,7 @@ class Server {
   }
 
   cache(req, res, next) {
-    const productId = req.originalUrl.split('/')[2];
+    const productId = req.originalUrl.split('/')[3];
     this.client.get(productId, function(err, data) {
       if (err) throw err;
       if (data !== null) {
