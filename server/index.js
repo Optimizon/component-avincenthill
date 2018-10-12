@@ -70,20 +70,24 @@ class Server {
     this.app.get(`/reviews/*`, bodyParser.json(), this.cache, (req, res) => {
       const productId = req.originalUrl.split('/')[3]; // get productId from url
       db.getReviews(productId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         this.client.setex(productId, 60, JSON.stringify(data));
         res.status(202).send(data);
-      });
+      }});
     });  
 
     this.app.get(`/api/reviews/*`, bodyParser.json(), this.cache, (req, res) => {
       const productId = req.originalUrl.split('/')[3]; // get productId from url
       
       db.getReviews(productId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         this.client.setex(productId, 60, JSON.stringify(data));
         res.status(202).send(data);
-      });
+      }});
     });
 
     this.app.get('/loaderio-40a1dfe6c03e1e5a6ef0de7062c9c4aa', (req, res) => {
@@ -97,18 +101,22 @@ class Server {
       const productId = req.originalUrl.split('/')[3]; // get productId from url
       // const productId = 10000001;
       db.createReview(productId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
     });
 
     this.app.post(`/api/reviews/new`, bodyParser.json(), (req, res) => {
       // const productId = req.originalUrl.split('/')[3]; // get productId from url
       const productId = 10000001;
       db.createReview(productId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
     });
   }
 
@@ -117,9 +125,11 @@ class Server {
     this.app.put(`/helpful/*`, bodyParser.json(), (req, res) => {
       const reviewId = req.originalUrl.split('/')[3]; // get reviewId from url
       db.incrementHelpfulness(reviewId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
     });
     
     // update the content of a review
@@ -127,26 +137,32 @@ class Server {
     const reviewId = req.originalUrl.split('/')[3]; // get reviewId from url
     const data = req.body.results;
       db.updateReview(reviewId, data, (err, result) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
     });
     
     // decrement the helpfulness of a review
     this.app.put(`/helpful/*`, bodyParser.json(), (req, res) => {
     const reviewId = req.originalUrl.split('/')[3]; // get reviewId from from url
       db.decrementHelpfulness(reviewId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
   });
 
     this.app.put(`/api/helpful/*`, bodyParser.json(), (req, res) => {
       const reviewId = req.originalUrl.split('/')[3]; // get reviewId from url
       db.incrementHelpfulness(reviewId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
     });
     
     // update the content of a review
@@ -154,18 +170,22 @@ class Server {
     const reviewId = req.originalUrl.split('/')[3]; // get reviewId from url
     const data = req.body.results;
       db.updateReview(reviewId, data, (err, result) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
     });
     
     // decrement the helpfulness of a review
     this.app.put(`/api/helpful/*`, bodyParser.json(), (req, res) => {
     const reviewId = req.originalUrl.split('/')[3]; // get reviewId from from url
       db.decrementHelpfulness(reviewId, (err, data) => {
-        if (err) return console.error(err);
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
   });
 }
 
@@ -174,17 +194,21 @@ class Server {
     this.app.delete(`/reviews/*`, bodyParser.json(), (req, res) => {
     const reviewId = req.originalUrl.split('/')[3]; // get reviewId from from url
       db.deleteReview(reviewId, (err, data) => {
-        if (err) return console.error(err);    
+        if (err) { 
+          res.status(500).send() 
+        } else {
         res.status(202).send();
-      });
+      }});
     });
 
     this.app.delete(`/api/reviews/*`, bodyParser.json(), (req, res) => {
     const reviewId = req.originalUrl.split('/')[3]; // get reviewId from from url
       db.deleteReview(reviewId, (err, data) => {
-        if (err) return console.error(err);    
+        if (err) { 
+          res.status(500).send() 
+        } else { 
         res.status(202).send();
-      });
+      }});
     });
   }
 }
