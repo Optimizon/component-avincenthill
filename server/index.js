@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('newrelic');
+// require('newrelic');
 const express = require('express');
 const redis = require('redis');
 const morgan = require('morgan');
@@ -72,7 +72,7 @@ class Server {
       
       db.getReviews(productId, (err, data) => {
         if (err) return console.error(err);
-        this.client.set(productId, JSON.stringify(data));
+        this.client.set('' + productId, JSON.stringify(data));
         res.status(202).send(data);
       });
     });  
