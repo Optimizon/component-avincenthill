@@ -69,7 +69,6 @@ class Server {
     // return reviews with posted productId
     this.app.get(`/reviews/*`, bodyParser.json(), this.cache, (req, res) => {
       const productId = req.originalUrl.split('/')[3]; // get productId from url
-      
       db.getReviews(productId, (err, data) => {
         if (err) return console.error(err);
         this.client.setex(productId, 60, JSON.stringify(data));
