@@ -13,7 +13,7 @@ class Server {
   constructor() {
     this.port = process.env.SERVERPORT || 8080;
     this.proxyPort = process.env.PROXYPORT || 3000;
-    this.client = redis.createClient({host: 'ec2-18-144-29-61.us-west-1.compute.amazonaws.com', port: 6379});
+    this.client = redis.createClient({host: 'ec2-54-215-187-242.us-west-1.compute.amazonaws.com', port: 6379});
     this.serverAddress = `http://localhost:${this.port}`;
     this.proxyAddress = `http://localhost:${this.proxyPort}`;
     this.app = express();
