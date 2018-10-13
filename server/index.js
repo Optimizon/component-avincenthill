@@ -37,7 +37,7 @@ class Server {
     this.handleGets();
     this.handlePosts();
     this.handlePuts();
-    this.handleDeletes();
+    // this.handleDeletes();
     this.handleOptions();
   }
 
