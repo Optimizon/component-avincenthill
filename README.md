@@ -1,6 +1,6 @@
 # Project Name
 
-> Nick optimizing Alex's microservice
+> Optimizing Alex's Microservice for improved response time and throughput
 
 ## Related Projects
 
